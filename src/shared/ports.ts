@@ -25,7 +25,9 @@ export type ServiceInfo = z.infer<typeof serviceInfoSchema>;
 export type PortRecord = z.infer<typeof portRecordSchema>;
 export type PortSnapshot = z.infer<typeof portSnapshotSchema>;
 
-export type ProcessIdentity = Pick<PortRecord, 'pid' | 'processName' | 'processPath' | 'startedAt' | 'isCritical'>;
-export type StopRequest = { key: string; identity: ProcessIdentity; mode: 'graceful' | 'force' };
+export const processIdentitySchema = z.object({ pid: z.number().int().nonnegative(), processName: z.string(), processPath: z.string(), startedAt: z.string(), isCritical: z.boolean(), user: z.string().optional() });
+export type ProcessIdentity = z.infer<typeof processIdentitySchema>;
+export const stopRequestSchema = z.object({ key: z.string().min(1).max(512), identity: processIdentitySchema, mode: z.enum(['graceful', 'force']), serviceName: z.string().min(1).max(256).optional() });
+export type StopRequest = z.infer<typeof stopRequestSchema>;
 export type StopProgress = { stage: 'validating' | 'stopping' | 'verifying'; message: string };
-export type StopResult = { status: 'stopped' | 'blocked' | 'failed' | 'unknown'; message: string };
+export type StopResult = { status: 'stopped' | 'blocked' | 'failed' | 'unknown'; message: string; requiresForce?: boolean; requiresElevation?: boolean };
