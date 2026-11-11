@@ -6,4 +6,7 @@ coverage/
 .worktrees/
 .superpowers/
 *.log
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
 
