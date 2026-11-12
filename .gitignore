@@ -2,8 +2,13 @@ node_modules/
 dist/
 release/
 coverage/
+test-results/
+playwright-report/
 .vite/
 .worktrees/
 .superpowers/
 *.log
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
 

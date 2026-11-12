@@ -1,0 +1,20 @@
+appId: com.portlens.desktop
+productName: PortLens
+directories:
+  output: release
+files:
+  - dist/**/*
+  - package.json
+asar: true
+asarUnpack:
+  - dist/main/system/scripts/**
+win:
+  icon: build/icon.png
+  target:
+    - target: nsis
+      arch: [x64]
+  artifactName: PortLens-${version}-Setup-${arch}.${ext}
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  deleteAppDataOnUninstall: false
